@@ -9,6 +9,7 @@ using Data;
 using Entities;
 using Infrastructure.Errors;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Core.Repositories
 {
@@ -16,6 +17,7 @@ namespace Core.Repositories
     {
         private readonly TodoDataContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger<TodoRepository> _logger;
         
         public TodoRepository(IMapper mapper, TodoDataContext context)
         {
@@ -51,8 +53,7 @@ namespace Core.Repositories
 
             _ = todo ?? throw new RestException(HttpStatusCode.NotFound, new { Todo = "Not found" });
 
-            todo.Title = todoDto.Title;
-            todo.Description = todo.Description;
+            todo = _mapper.Map(todoDto, todo);
             _context.Todos.Update(todo);
             
             return  await _context.SaveChangesAsync() > 0;
