@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -9,7 +7,6 @@ using Data;
 using Entities;
 using Infrastructure.Errors;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace Core.Repositories
 {
@@ -17,7 +14,6 @@ namespace Core.Repositories
     {
         private readonly TodoDataContext _context;
         private readonly IMapper _mapper;
-        private readonly ILogger<TodoRepository> _logger;
         
         public TodoRepository(IMapper mapper, TodoDataContext context)
         {
